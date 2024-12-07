@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Usuario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stilo.css') }}"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+
+<div class="user-container">
+    <h1>Buscar Usuario por ID</h1>
+    
+    <!-- Buscador -->
+    <form method="POST">
+        <input type="number" name="searchId" placeholder="Ingresa el ID del usuario" min="1" max="10" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if user_info %}
+    <!-- Información detallada del usuario -->
+    <div id="userInfo">
+        <h2>Información del Usuario</h2>
+        <div>
+            <p><strong>ID:</strong> {{ user_info.id }}</p>
+            <p><strong>Nombre:</strong> {{ user_info.name }}</p>
+            <p><strong>Nombre de usuario:</strong> {{ user_info.username }}</p>
+            <p><strong>Correo Electrónico:</strong> {{ user_info.email }}</p>
+        </div>
+        
+        <h3>Dirección</h3>
+        <table>
+            <tr>
+                <th>Calle</th>
+                <td>{{ user_info.address.street }}</td>
+            </tr>
+            <tr>
+                <th>Suite</th>
+                <td>{{ user_info.address.suite }}</td>
+            </tr>
+            <tr>
+                <th>Ciudad</th>
+                <td>{{ user_info.address.city }}</td>
+            </tr>
+            <tr>
+                <th>Código Postal</th>
+                <td>{{ user_info.address.zipcode }}</td>
+            </tr>
+            <tr>
+                <th>Latitud</th>
+                <td>{{ user_info.address.geo.lat }}</td>
+            </tr>
+            <tr>
+                <th>Longitud</th>
+                <td>{{ user_info.address.geo.lng }}</td>
+            </tr>
+        </table>
+    
+        <h3>Teléfono</h3>
+        <p>{{ user_info.phone }}</p>
+    
+        <h3>Sitio Web</h3>
+        <p>{{ user_info.website }}</p>
+    
+        <h3>Compañía</h3>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ user_info.company.name }}</td>
+            </tr>
+            <tr>
+                <th>Frase</th>
+                <td>{{ user_info.company.catchPhrase }}</td>
+            </tr>
+            <tr>
+                <th>BS</th>
+                <td>{{ user_info.company.bs }}</td>
+            </tr>
+        </table>
+    </div>
+    {% else %}
+        <p>Ingresa un ID para buscar el usuario.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
